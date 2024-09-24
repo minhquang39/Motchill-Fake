@@ -22,6 +22,7 @@ const director = document.querySelector(".director");
 const actor = document.querySelector(".actor");
 
 const trailerBtn = document.querySelector(".watch-trailer");
+const watchNowBtn = document.querySelector(".watch-now");
 
 // Modal
 const modal = document.getElementById("modal");
@@ -31,7 +32,7 @@ const closeModal = document.querySelector(".close-modal");
 const countryName = document.querySelector(".category-navbar-name");
 const movieTitle = document.querySelector(".movie-name");
 fetchApi(`https://phimapi.com/phim/${slug}`).then((data) => {
-  //   console.log(data.movie.trailer_url);
+  // console.log(data);
 
   movieThumb.src = data.movie.poster_url;
   movieName.innerText = data.movie.name;
@@ -75,6 +76,10 @@ fetchApi(`https://phimapi.com/phim/${slug}`).then((data) => {
   director.innerText = newDirector;
   const episodeInfo = data.episodes[0].server_data;
 
+  const firstEpisode = data?.episodes[0]?.server_data[0];
+
+  watchNowBtn.setAttribute("link_embed", firstEpisode.link_embed);
+
   const trailer = data.movie.trailer_url;
 
   if (trailer) {
@@ -95,11 +100,18 @@ function renderEpisode(data, element) {
     const embed = item.link_embed;
     const m3u8 = item.link_m3u8;
     html += `
-             <li class="episodeItem"><a href=watchMovie.html?${episodeSlug}" embed="${embed}" m3u8="${m3u8}">${item.name}</a></li>
+             <li class="episodeItem"><a href="#" embed="${embed}" m3u8="${m3u8}" onclick="playMovie(event)">${item.name}</a></li>
         `;
   });
 
   element.innerHTML = html;
+}
+function clearClass(element, className) {
+  const elementList = document.querySelectorAll(`.${element}`);
+
+  elementList.forEach((element) => {
+    element.classList.remove(className);
+  });
 }
 
 trailerBtn.onclick = function (e) {
@@ -110,6 +122,17 @@ closeModal.onclick = function (e) {
   closeModalTrailer(e);
 };
 
+function playMovie(e) {
+  modal.style.display = "flex";
+  document.body.style.overflow = "hidden"; // Ngăn cuộn trang
+  const link = e.target.getAttribute("embed");
+
+  e.target.parentElement.classList.add("active");
+
+  const player = document.querySelector(".player");
+  player.src = link;
+}
+
 function playTrailer(e) {
   modal.style.display = "flex";
   document.body.style.overflow = "hidden"; // Ngăn cuộn trang
@@ -118,14 +141,34 @@ function playTrailer(e) {
   const idLink = trailerLink.split("v=")[1];
   const embedUrl = `https://www.youtube.com/embed/${idLink}`;
 
-  const youtube = document.querySelector(".ytb");
-  youtube.src = embedUrl;
+  const player = document.querySelector(".player");
+  player.src = embedUrl;
+}
+
+function watchNow(e) {
+  modal.style.display = "flex";
+  document.body.style.overflow = "hidden"; // Ngăn cuộn trang
+  const link = e.target.getAttribute("link_embed");
+
+  document.querySelector(".episodeItem").classList.add("active");
+
+  const player = document.querySelector(".player");
+  player.src = link;
 }
 
 function closeModalTrailer(e) {
   modal.style.display = "none";
   document.body.style.overflow = "auto"; // KHôi phục cuộn trang
+  document.querySelector(".player").src = "";
+  clearClass("episodeItem", "active");
 }
+
+// function clearClass(element, className) {
+//   const elementList = document.querySelectorAll(`.${element}`);
+//   console.log(elementList);
+// }
+
+// clearClass("episodeItem", "className");
 
 const tabNamess = document.querySelectorAll(".tab-section");
 const tabContentss = document.querySelectorAll(".tab-info");

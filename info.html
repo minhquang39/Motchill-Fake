@@ -181,10 +181,10 @@
                     <div class="col-12 col-lg-9">
                         <div class=" movie pt-2">
                             <div class="row movie-top pb-3">
-                                <div class="col-lg-3 movie-left">
+                                <div class="col-6 col-lg-3 movie-left">
                                     <img src="" alt="" class="movie-thumb img-fluid">
                                 </div>
-                                <div class="col-lg-9 movie-right ps-4">
+                                <div class="col-6 col-lg-9 movie-right ps-4 pad-0">
                                     <h3 class="movie_name"></h3>
                                     <p class="movie_origin_name"></p>
                                     <p class="publish_date"></p>
@@ -196,7 +196,8 @@
                                     </div>
 
                                     <div class="mt-5 btn-control">
-                                        <div class="btn btn-primary watch-now"><i class="bi bi-play-fill"></i>Xem ngay
+                                        <div class="btn btn-primary watch-now" onclick="watchNow(event)"><i
+                                                class="bi bi-play-fill"></i>Xem ngay
                                         </div>
                                         <div class="watch-trailer btn btn-danger"><i class="bi bi-youtube"></i>Xem
                                             trailer
@@ -298,7 +299,7 @@
 
     <div id="modal">
         <div class="modal-container">
-            <iframe width="600" height="300" src="" class="ytb" allow="fullscreen">
+            <iframe width="" height="" src="" class="player" allow="fullscreen">
             </iframe>
         </div>
         <div class="close-modal"><i class="bi bi-x-lg"></i></div>

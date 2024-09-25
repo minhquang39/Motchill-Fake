@@ -1,0 +1,39 @@
+.movie_result {
+    color: #fff;
+    font-size: 20px;
+}
+
+.movie-content {
+    position: relative;
+    cursor: pointer;
+}
+
+.episode,
+.quality,
+.originName,
+.movieName {
+    color: #fff;
+    position: absolute;
+}
+
+
+.episode {
+    top: 5%;
+    left: calc(5px);
+    background-color: var(--text-mark);
+}
+
+.quality {
+    top: 5%;
+    right: 0;
+    background-color: rgb(59, 130, 246);
+}
+
+.movieName {
+    position: absolute;
+    bottom: 0;
+    font-size: 14px;
+    font-weight: bold;
+
+    /* width: 80%; */
+}

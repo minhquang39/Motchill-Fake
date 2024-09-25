@@ -25,6 +25,10 @@ footer {
     font-size: 18px;
 }
 
+.footer_list {
+    list-style: none;
+}
+
 .footer_item {
     margin-bottom: 10px;
 }

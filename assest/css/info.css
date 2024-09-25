@@ -272,6 +272,10 @@
 }
 
 @media only screen and (max-width: 768px) {
+    .watch-recent {
+        display: none;
+    }
+
     .pad-0 {
         padding: 0 !important;
     }

@@ -4,6 +4,8 @@ const slug = urlParams.get("slug");
 
 const movieThumb = document.querySelector(".movie-thumb");
 const movieName = document.querySelector(".movie_name");
+const categoryNavbar = document.querySelector(".category-navbar-name");
+
 const movieOriginName = document.querySelector(".movie_origin_name");
 const publishDate = document.querySelector(".publish_date");
 const episode = document.querySelector(".episode");
@@ -35,6 +37,15 @@ fetchApi(`https://phimapi.com/phim/${slug}`).then((data) => {
   // console.log(data);
 
   movieThumb.src = data.movie.poster_url;
+
+  // console.log(data.movie.country[0].slug);
+
+  categoryNavbar.innerHTML = `
+     <i class="bi bi-chevron-right"></i>
+    <a href="category.html?slug=${data.movie.country[0].slug}">
+      ${data?.data?.titlePage || "Phim mới"}
+    </a>
+  `;
   movieName.innerText = data.movie.name;
   movieOriginName.innerText = data.movie.origin_name;
   publishDate.innerText = `Created at: ${new Date(

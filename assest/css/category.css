@@ -13,7 +13,12 @@
     color: var(--text-color);
 }
 
-.navigation-bar ul li:hover {
+.navigation-bar ul li a {
+    color: var(--text-color);
+    text-decoration: none;
+}
+
+.navigation-bar ul li a:hover {
     color: var(--text-mark);
     cursor: pointer;
 }

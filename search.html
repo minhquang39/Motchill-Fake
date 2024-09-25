@@ -18,8 +18,7 @@
     <link rel="stylesheet" href="./assest/css/header.css">
     <!-- <link rel="stylesheet" href="./assest/css/main.css"> -->
     <link rel="stylesheet" href="./assest/css/footer.css">
-    <!-- <link rel="stylesheet" href="./assest/css/category.css"> -->
-    <link rel="stylesheet" href="./assest/css/info.css">
+    <link rel="stylesheet" href="./assest/css/search.css">
 </head>
 
 <body>
@@ -170,80 +169,11 @@
             </header>
             <!-- Main -->
             <main class="ps-5 pe-5 mt-1 pad-0 mar-0">
-                <div class="navigation-bar">
-                    <ul>
-                        <li class="maris"><a href="index.html"><i class="bi bi-house"></i> Maris</a></li>
-                        <li class="category-navbar-name"><i class="bi bi-chevron-right"></i></li>
-                        <li class="movie-name"><i class="bi bi-chevron-right"></i></li>
-                    </ul>
-                </div>
+                <h3 class="movie_result text-center mt-4"></h3>
                 <section class="row mt-4">
-                    <div class="col-12 col-lg-12">
-                        <div class=" movie pt-2">
-                            <div class="row movie-top pb-3">
-                                <div class="col-6 col-lg-3 movie-left">
-                                    <img src="" alt="" class="movie-thumb img-fluid">
-                                </div>
-                                <div class="col-6 col-lg-9 movie-right ps-1 ps-lg-4 ">
-                                    <h3 class="movie_name"></h3>
-                                    <p class="movie_origin_name"></p>
-                                    <p class="publish_date"></p>
-                                    <p class="episode"></p>
-                                    <div>
-                                        <span class="year"></span>
-                                        <span class="country"></span>
-                                        <span class="category"></span>
-                                    </div>
-
-                                    <div class="mt-5 btn-control">
-                                        <div class="btn btn-primary watch-now mb-2" onclick="watchNow(event)"><i
-                                                class="bi bi-play-fill"></i>Xem ngay
-                                        </div>
-                                        <div class="watch-trailer btn btn-danger mb-2"><i class="bi bi-youtube"></i>Xem
-                                            trailer
-                                        </div>
-                                        <div class="btn btn-success add-favorite mb-2"><i class="bi bi-heart"></i>Thêm
-                                            vào
-                                            yêu
-                                            thích</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <p class="divided mt-2"> </p>
-                            <div class="movie-body">
-                                <div class="tabs-section-movie pt-2 pb-3">
-                                    <div class="tab-section active">Danh sách tập</div>
-                                    <div class="tab-section">Thông tin phim</div>
-                                    <div class="tab-section">Diễn viên</div>
-                                </div>
-                                <div class="tabs-info-movie  px-3 py-3">
-                                    <div class="tab-info active">
-                                        <h3 class="episodeTag">Danh sách tập</h3>
-                                        <ul class="episodeList pt-2">
-
-                                        </ul>
-                                    </div>
-                                    <div class="tab-info">
-                                        <h3 class="episodeTag">Tóm tắt</h3>
-                                        <p class="description"></p>
-                                        <h3 class="episodeTag">Thông tin</h3>
-                                        <ul class="detail-movie ps-3">
-                                            <li>Tên gốc: <span class="origin_name"></span></li>
-                                            <li>Tên khác: <span class="other_name"></span> </li>
-                                            <li>Thời lượng: <span class="timePerEpisode"></span> </li>
-                                        </ul>
-                                    </div>
-                                    <div class="tab-info">
-                                        <h3 class="episodeTag">Creator</h3>
-                                        <span class="director"></span>
-                                        <h3 class="episodeTag mt-3">Diễn Viên</h3>
-                                        <span class="actor"></span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
+                    <div class="row movies gy-4">
                     </div>
+
 
 
                 </section>
@@ -296,16 +226,8 @@
         </div>
     </div>
 
-    <div id="modal">
-        <div class="modal-container">
-            <iframe width="" height="" src="" class="player" allow="fullscreen">
-            </iframe>
-        </div>
-        <div class="close-modal"><i class="bi bi-x-lg"></i></div>
-    </div>
-
     <script src="./assest/js/general.js" defer></script>
-    <script src="./assest/js/info.js" defer></script>
+    <script src="./assest/js/search.js" defer></script>
 </body>
 
 </html>

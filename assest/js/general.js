@@ -1,18 +1,14 @@
-const popularFilm = document.getElementById("popularFilm");
-const btnPopularLeft = document.querySelector(".topic-popular .btn-left");
-const btnPopularRight = document.querySelector(".topic-popular .btn-right");
+export const API_FEATUREFILM = `https://phimapi.com/v1/api/danh-sach/phim-le`;
+export const API_TELEVISIONSERIES = `https://phimapi.com/v1/api/danh-sach/phim-bo`;
+export const API_CARTOON = `https://phimapi.com/v1/api/danh-sach/hoat-hinh`;
+export const API_CATEGORY = `https://phimapi.com/the-loai`;
+export const API_COUNTRY = `https://phimapi.com/quoc-gia`;
+export const API_NEWS = `https://phimapi.com/danh-sach/phim-moi-cap-nhat?page=1`;
 
-const seriesFilm = document.getElementById("series-film");
-const singleFilm = document.getElementById("single-film");
-const cartoonFilm = document.getElementById("cartoonFilm");
-const tabNames = document.querySelectorAll(".tab_category_title");
-const tabContents = document.querySelectorAll(".tab_category_content");
+export const header = document.querySelector("header");
+export const footer = document.querySelector("footer");
 
-const menuBar = document.querySelector(".menu");
-const menuNav = document.querySelector("#nav-menu");
-
-const searchIcon = document.querySelector(".search-btn-mobile");
-const searchArea = document.querySelector(".search-area");
+// const search = document.getElementById("search");
 
 // Fetch Api function
 const fetchApi = async (url) => {
@@ -24,72 +20,11 @@ const fetchApi = async (url) => {
   }
 };
 
-// fetchApi("https://phimapi.com/phim/sieu-dai-chien").then((data) => {
-//   console.log(data);
-// });
+// document.getElementById("search").onkeyup = function (e) {
+//   const value = search.value.trim();
+//   if (e.key === "Enter") {
+//     if (value) window.location.href = `search.html?keyword=${value}`;
+//   }
+// };
 
-// handle change page
-function handleChangePage(event) {
-  event.preventDefault();
-
-  const linkApi = event.target.getAttribute("link-api");
-  localStorage.setItem("LINK-API", linkApi);
-
-  const linkApiSplit = linkApi.split("/");
-  const slug = linkApiSplit[linkApiSplit.length - 1];
-
-  window.location.href = `category.html?slug=${slug}`;
-  // history.pushState(null, "", `category.html/${slug}`);
-}
-
-function handleInfoMovie(event) {}
-
-function scrollToTop() {
-  document.body.scrollTop = 0; // For Safari
-  document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
-}
-
-function showMenuDropdown(e) {
-  const parentElement = e.target.parentElement;
-  const subMenu = parentElement.querySelector(".sub-nav-item");
-
-  const hadActive = document.querySelector(".nav-item.dropdown.active");
-  if (hadActive && hadActive !== parentElement) {
-    // Nếu có menu khác đang active và không phải là menu hiện tại
-    hadActive.classList.remove("active");
-    hadActive.querySelector(".sub-nav-item").style.display = "none";
-  }
-
-  parentElement.classList.toggle("active");
-  if (parentElement.classList.contains("active")) {
-    subMenu.style.display = "flex"; // Hiển thị menu
-  } else {
-    subMenu.style.display = "none"; // Ẩn menu
-  }
-}
-
-function showNav(event) {
-  menuNav.classList.toggle("active");
-
-  if (menuNav.classList.contains("active")) {
-    menuNav.style.display = "flex";
-  } else {
-    menuNav.style.display = "none";
-  }
-}
-
-searchIcon.onclick = function (e) {
-  showSearch();
-};
-
-function showSearch(event) {
-  searchIcon.classList.toggle("active");
-
-  if (searchIcon.classList.contains("active")) {
-    searchArea.style.display = "block";
-    searchIcon.innerHTML = '<i class="bi bi-x-lg"></i>';
-  } else {
-    searchArea.style.display = "none";
-    searchIcon.innerHTML = '<i class="bi bi-search"></i>';
-  }
-}
+export default fetchApi;

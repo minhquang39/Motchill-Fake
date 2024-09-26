@@ -4,9 +4,11 @@ export const API_CARTOON = `https://phimapi.com/v1/api/danh-sach/hoat-hinh`;
 export const API_CATEGORY = `https://phimapi.com/the-loai`;
 export const API_COUNTRY = `https://phimapi.com/quoc-gia`;
 export const API_NEWS = `https://phimapi.com/danh-sach/phim-moi-cap-nhat?page=1`;
+export const API_MOVIE = "https://phimapi.com/phim";
 
 export const header = document.querySelector("header");
 export const footer = document.querySelector("footer");
+export const main = document.querySelector("main");
 
 // const search = document.getElementById("search");
 

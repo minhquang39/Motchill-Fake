@@ -7,7 +7,7 @@ import {
 } from "./general.js";
 import Header from "./components/Header/Header.js";
 import Footer from "./components/Footer/Footer.js";
-import { header, footer } from "./general.js";
+import { header, main, footer } from "./general.js";
 import Movie from "./components/Content/Movie.js";
 import scrollToTop from "./utils/scrollTop.js";
 import handlePreNext from "./utils/handlePreNext.js";
@@ -21,20 +21,32 @@ const app = () => {
 
   return {
     async render() {
-      const [popularMovie, seriesMovie, singesMovie, cartoonMovie] =
-        await Promise.all([
-          fetchApi(API_NEWS),
-          fetchApi(API_TELEVISIONSERIES),
-          fetchApi(API_FEATUREFILM),
-          fetchApi(API_CARTOON),
-        ]);
+      try {
+        const [popularMovie, seriesMovie, singesMovie, cartoonMovie] =
+          await Promise.all([
+            fetchApi(API_NEWS),
+            fetchApi(API_TELEVISIONSERIES),
+            fetchApi(API_FEATUREFILM),
+            fetchApi(API_CARTOON),
+          ]);
 
-      setTimeout(() => {
-        Movie(popularMovie.items, popularFilm);
-        Movie(seriesMovie.data.items, seriesFilm);
-        Movie(singesMovie.data.items, singleFilm);
-        Movie(cartoonMovie.data.items, cartoonFilm);
-      }, 0);
+        setTimeout(() => {
+          Movie(popularMovie.items, popularFilm);
+          Movie(seriesMovie.data.items, seriesFilm);
+          Movie(singesMovie.data.items, singleFilm);
+          Movie(cartoonMovie.data.items, cartoonFilm);
+        }, 1000);
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    init() {
+      const loader = document.querySelector(".loading");
+      if (loader) {
+        setTimeout(() => {
+          document.querySelector(".container").removeChild(loader);
+        }, 2000);
+      }
     },
     handleEvent() {
       handlePreNext(
@@ -81,14 +93,12 @@ const app = () => {
         slider.addEventListener("mouseup", end);
         slider.addEventListener("touchend", end);
       })(),
-        handleMultiTab(
-          document.querySelectorAll(".tab_category_title"),
-          document.querySelectorAll(".tab_category_content")
-        );
+        handleMultiTab(".tab_category_title", ".tab_category_content");
     },
     start() {
       Header(header);
       Footer(footer);
+      this.init();
       this.render();
       this.handleEvent();
     },

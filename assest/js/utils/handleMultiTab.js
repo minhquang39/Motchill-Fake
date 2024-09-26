@@ -1,14 +1,12 @@
-function handleMultiTab(tabNames, tabContents) {
+function handleMultiTab(name, content) {
+  const tabNames = document.querySelectorAll(name);
+  const tabContents = document.querySelectorAll(content);
   tabNames.forEach((tabName, index) => {
     tabName.onclick = function (e) {
-      document
-        .querySelector(".tab_category_title.active")
-        .classList.remove("active");
+      document.querySelector(`${name}.active`).classList.remove("active");
       tabNames[index].classList.add("active");
 
-      document
-        .querySelector(".tab_category_content.active")
-        .classList.remove("active");
+      document.querySelector(`${content}.active`).classList.remove("active");
       tabContents[index].classList.add("active");
     };
   });

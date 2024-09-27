@@ -13,9 +13,7 @@
     font-family: "Poppins", sans-serif;
 }
 
-.col2 {
-    width: 20%;
-}
+
 
 ol,
 ul {
@@ -42,4 +40,11 @@ body {
 
 .hide {
     display: none;
+}
+
+@media screen and (min-width: 1000px) {
+    .col2 {
+        width: 20%;
+    }
+
 }

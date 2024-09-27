@@ -32,7 +32,7 @@ const Header = async (element) => {
                     <div
                         class=" col-12 col-lg-6 text-center d-flex justify-content-center align-items-center search-film">
                         <div class="search-area">
-                            <input type="text" id="search" placeholder="Tìm Kiếm">
+                            <input type="text" id="search" onkeyup="Search(event)" placeholder="Tìm Kiếm">
                             <span class="search-icon"><i class="bi bi-search"></i></span>
                         </div>
 

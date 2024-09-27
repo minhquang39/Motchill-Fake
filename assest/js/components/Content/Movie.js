@@ -2,7 +2,7 @@ const Movie = (data, element) => {
   let html = "";
   data.forEach((item) => {
     html += `
-              <div class="col-6 col-sm-4 col-lg-3 ">
+              <div class=" col-6 col-sm-4 col-lg-3 col2 ">
                             <div class="movie">
                                 <a href="info.html?slug=${item.slug}">
                                     <img src="${

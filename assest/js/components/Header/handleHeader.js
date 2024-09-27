@@ -56,10 +56,23 @@ function showMenuDropdown(e) {
     subMenu.style.display = "none"; // Ẩn menu
   }
 }
+function Search(e) {
+  const value = search.value.trim();
+  if (e.key === "Enter") {
+    if (value) window.location.href = `search.html?keyword=${value}`;
+  }
+}
 
 window.showNav = showNav;
 window.handleChangePage = handleChangePage;
 window.showSearch = showSearch;
 window.showMenuDropdown = showMenuDropdown;
+window.Search = Search;
 
-export default { handleChangePage, showNav, showSearch, showMenuDropdown };
+export default {
+  handleChangePage,
+  showNav,
+  showSearch,
+  showMenuDropdown,
+  Search,
+};

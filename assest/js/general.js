@@ -22,11 +22,4 @@ const fetchApi = async (url) => {
   }
 };
 
-// document.getElementById("search").onkeyup = function (e) {
-//   const value = search.value.trim();
-//   if (e.key === "Enter") {
-//     if (value) window.location.href = `search.html?keyword=${value}`;
-//   }
-// };
-
 export default fetchApi;

@@ -4,6 +4,7 @@ import fetchApi from "./general.js";
 import renderPagination from "./utils/renderPagination.js";
 import { header, main, footer } from "./general.js";
 import handleHeader from "./components/Header/handleHeader.js";
+import scrollTop from "./utils/scrollTop.js";
 import addOrUpdateUrlParameter from "./utils/updateUrlParameter.js";
 
 const queryString = window.location.search;
@@ -26,30 +27,34 @@ const categoryDetail = () => {
 
   return {
     async getMovie(currentPage = 1) {
-      const data = await fetchApi(`${linkApi}?page=${currentPage}`);
+      try {
+        const data = await fetchApi(`${linkApi}?page=${currentPage}`);
 
-      categoryTitle.innerText = data?.data?.titlePage || "Phim mới";
-      categoryNavbar.innerHTML = `
-        <i class="bi bi-chevron-right"></i>
-        <a href="category.html?slug=${data.data.type_list}">
+        setTimeout(() => {
+          categoryTitle.innerText = data?.data?.titlePage || "Phim mới";
+          categoryNavbar.innerHTML += `
+          <a href="category.html?slug=${data.data.type_list}">
           ${data?.data?.titlePage || "Phim mới"}
-        </a>
-      `;
+          </a>
+          `;
+          const movies = data.data.items;
+          totalPages = data.data.params.pagination.totalPages;
 
-      const movies = data.data.items;
-      totalPages = data.data.params.pagination.totalPages;
-
-      this.renderMovie(movies, moviesArea);
-      start = 3;
-      end = 5;
-      renderPagination(totalPages, pagination, start, end);
+          this.renderMovie(movies, moviesArea);
+          start = 3;
+          end = 5;
+          renderPagination(totalPages, pagination, start, end);
+        }, 1000);
+      } catch (error) {
+        console.log(error);
+      }
     },
     renderMovie(data, element) {
       let html = "";
       data.forEach((item) => {
         const slugMovie = item.slug;
         html += `
-            <div class="col-6 col-sm-4 col-lg-3">
+            <div class="col-6 col-sm-4 col-lg-3 col2">
                 <div class="movie-content">
                             <div class="movie">
                                <a href="info.html?slug=${slugMovie}">

@@ -63,7 +63,7 @@ const info = () => {
     renderInfoMovie(data) {
       movieThumb.src = data.movie.poster_url;
 
-      categoryNavbar.innerHTML += `
+      categoryNavbar.innerHTML = ` <i class="bi bi-chevron-right"></i>
         <a href="category.html?slug=${data.movie.country[0].slug}">
         ${data?.data?.titlePage || "Phim mới"}
         </a>

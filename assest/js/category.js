@@ -1,18 +1,26 @@
 import Header from "./components/Header/Header.js";
 import Footer from "./components/Footer/Footer.js";
 import fetchApi from "./general.js";
-import renderPagination from "./utils/renderPagination.js";
+// import renderPagination from "./utils/renderPagination.js";
 import { header, main, footer } from "./general.js";
 import handleHeader from "./components/Header/handleHeader.js";
 import scrollTop from "./utils/scrollTop.js";
 import addOrUpdateUrlParameter from "./utils/updateUrlParameter.js";
 
-const queryString = window.location.search;
-const urlParams = new URLSearchParams(queryString);
-let currentPage = parseInt(urlParams.get("page"));
-if (isNaN(currentPage)) currentPage = 1;
+// const queryString = window.location.search;
+// const urlParams = new URLSearchParams(queryString);
+// let currentPage = parseInt(urlParams.get("page"));
+// if (isNaN(currentPage)) currentPage = 1;
 
 const categoryDetail = () => {
+  const queryString = window.location.search;
+  const urlParams = new URLSearchParams(queryString);
+  let currentPage = parseInt(urlParams.get("page"));
+
+  if (isNaN(currentPage)) currentPage = 1;
+
+  console.log(currentPage);
+
   const linkApi = localStorage.getItem("LINK-API");
 
   const categoryTitle = document.querySelector(".category_title");
@@ -22,8 +30,8 @@ const categoryDetail = () => {
   const pagination = document.getElementById("Pagination");
 
   var totalPages;
-  let start = 2;
-  let end = 5;
+
+  var page = 5;
 
   return {
     async getMovie(currentPage = 1) {
@@ -32,19 +40,17 @@ const categoryDetail = () => {
 
         setTimeout(() => {
           categoryTitle.innerText = data?.data?.titlePage || "Phim mới";
-          categoryNavbar.innerHTML += `
+          categoryNavbar.innerHTML = `
           <a href="category.html?slug=${data.data.type_list}">
           ${data?.data?.titlePage || "Phim mới"}
           </a>
           `;
           const movies = data.data.items;
-          totalPages = data.data.params.pagination.totalPages;
-
           this.renderMovie(movies, moviesArea);
-          start = 3;
-          end = 5;
-          renderPagination(totalPages, pagination, start, end);
-        }, 1000);
+          totalPages = data.data.params.pagination.totalPages;
+          localStorage.setItem("TOTAL-PAGES", JSON.stringify(totalPages));
+          this.renderPagination(totalPages, currentPage, pagination);
+        }, 2000);
       } catch (error) {
         console.log(error);
       }
@@ -88,7 +94,64 @@ const categoryDetail = () => {
       });
       element.innerHTML = html;
     },
+    renderPagination(total, page, element) {
+      let html = "";
+      let activePage = "";
+      let beforePage = page - 1;
+      let afterPage = page + 1;
 
+      // if (page == 1) {
+      //   beforePage = 1;
+      //   afterPage = afterPage + 2;
+      // } else if (page == 2) {
+      //   beforePage = 1;
+      //   afterPage = afterPage + 2;
+      // }
+
+      if (page == total) {
+        afterPage = total;
+        beforePage = beforePage - 3;
+      }
+
+      if (page > 1) {
+        html = `<a class="btn btn-prev" onclick="categoryDetail().renderPagination(${total},${
+          page - 1
+        },document.getElementById('${element.id}'))"><</a>`;
+      }
+
+      if (page > 2) {
+        html += `<a class="page-item" onclick="categoryDetail().renderPagination(${total},${1},document.getElementById('${
+          element.id
+        }'))" >1</a>`;
+        if (page > 3) {
+          html += `<a class="dots">...</a>`;
+        }
+      }
+
+      for (let pos = beforePage; pos <= afterPage; pos++) {
+        if (pos == 0 || pos == total + 1) continue;
+        html += `<a class="page-item ${
+          currentPage === pos ? "active" : ""
+        }" onclick="categoryDetail().renderPagination(${total},${pos},document.getElementById('${
+          element.id
+        }'))">${pos}</a>`;
+      }
+
+      if (page < total - 1) {
+        if (page < total - 2) {
+          html += `<a class="dots">...</a>`;
+        }
+        html += `<a class="page-item" onclick="categoryDetail().renderPagination(${total},${total},document.getElementById('${element.id}'))" >${total}</a>`;
+      }
+
+      if (page < total) {
+        html += `<a class="btn btn-next" onclick="categoryDetail().renderPagination(${total},${
+          page + 1
+        },document.getElementById('${element.id}'))" >></a>`;
+      }
+
+      element.innerHTML = html;
+    },
     init() {
       const loader = document.querySelector(".loading");
       if (loader) {
@@ -100,49 +163,34 @@ const categoryDetail = () => {
 
     handleEvent() {
       const _this = this;
+      function setActive(e) {
+        const pageItem = e.target.closest(".page-item"); // Lấy phần tử cha gần nhất có class "page-item"
+        const pageNumber = parseInt(pageItem.innerText);
+        if (pageItem && Number.isInteger(pageNumber)) {
+          currentPage = pageNumber;
+          _this.getMovie(currentPage);
+          addOrUpdateUrlParameter("page", currentPage);
+        }
 
-      function setActive(element) {
-        // document.querySelector(".page-item.active").classList.remove("active");
-        // element.classList.add("active");
-        console.log(element.classList);
+        // Nếu không có phần tử pageItem nào được tìm thấy, thoát ra
+        if (!pageItem) return;
+
+        // Kiểm tra nếu có phần tử nào khác đang có class "active"
+        const hadActive = document.querySelector(".page-item.active");
+
+        // Nếu có và phần tử đó không phải là phần tử vừa nhấp vào, loại bỏ class "active" khỏi nó
+        if (hadActive && hadActive !== pageItem) {
+          hadActive.classList.remove("active");
+        }
+
+        // Thêm class "active" vào phần tử hiện tại nếu nó chưa có class "active"
+        if (!pageItem.classList.contains("active")) {
+          pageItem.classList.add("active");
+        }
       }
 
       pagination.onclick = function (e) {
-        if (start > 1 && start <= totalPages) {
-          const pageItemNumber = parseInt(e.target.innerText);
-          if (Number.isInteger(pageItemNumber)) {
-            currentPage = pageItemNumber;
-            setActive(e.target);
-
-            if (currentPage == 1) {
-              start = 3;
-              end = 5;
-            }
-            _this.getMovie(currentPage);
-            renderPagination(totalPages, pagination, start, end);
-            addOrUpdateUrlParameter("page", currentPage);
-          }
-          if (e.target.classList.contains("total-page")) {
-            start = totalPages - 4;
-            end = totalPages - 2;
-            renderPagination(totalPages, pagination, start, end);
-          }
-          if (e.target.classList.contains("more-page")) {
-            renderPagination(totalPages, pagination, ++start, ++end);
-            document.querySelector(".less-page").innerText = "...";
-            addOrUpdateUrlParameter("page", currentPage);
-          }
-          if (e.target.classList.contains("less-page")) {
-            if (start == 3) {
-              document.querySelector(".less-page").innerText = "2";
-              return;
-            }
-            renderPagination(totalPages, pagination, --start, --end);
-            document.querySelector(".less-page").innerText = "...";
-            document.querySelector(".more-page").innerText = "...";
-            addOrUpdateUrlParameter("page", currentPage);
-          }
-        }
+        setActive(e);
       };
     },
     start() {
@@ -157,4 +205,4 @@ const categoryDetail = () => {
 
 categoryDetail().start();
 
-export default currentPage;
+window.categoryDetail = categoryDetail;

@@ -20,8 +20,10 @@ const Movie = (data, element) => {
                                         class="movie-thumb img-fluid" loading="lazy">
                                 </a>
                                 <div class="movieInfo">
+                                <a href="info.html?slug=${item.slug}">
                                     <p class="movieName">${item.name}</p>
                                     <p class="releaseTime">${item.year}</p>
+                                    </a>
                                 </div>
                             </div>
                         </div>

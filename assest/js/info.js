@@ -12,10 +12,13 @@ const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
 const slug = urlParams.get("slug");
 
+// let watched = localStorage.getItem("WATCHED") || [];
+// console.log(watched);
+
 const info = () => {
   const movieThumb = document.querySelector(".movie-thumb");
   const movieName = document.querySelector(".movie_name");
-  const categoryNavbar = document.querySelector(".category-navbar-name");
+  const categoryNavbar = document.querySelector("a.category-navbar-name-link");
 
   const movieOriginName = document.querySelector(".movie_origin_name");
   const publishDate = document.querySelector(".publish_date");
@@ -64,9 +67,7 @@ const info = () => {
       movieThumb.src = data.movie.poster_url;
 
       categoryNavbar.innerHTML = ` <i class="bi bi-chevron-right"></i>
-        <a href="category.html?slug=${data.movie.country[0].slug}">
         ${data?.data?.titlePage || "Phim mới"}
-        </a>
         `;
       movieName.innerText = data.movie.name;
       movieOriginName.innerText = data.movie.origin_name;
@@ -79,7 +80,6 @@ const info = () => {
 
       countryName.innerHTML = `<i class="bi bi-chevron-right"></i> ${data.movie.country[0].name}`;
       movieTitle.innerHTML = `<i class="bi bi-chevron-right"></i> ${data.movie.name}`;
-
       const newCategory = data.movie.category
         .map((item) => {
           return item.name;
@@ -143,7 +143,7 @@ const info = () => {
       if (loader) {
         setTimeout(() => {
           document.querySelector(".container").removeChild(loader);
-        }, 2000);
+        }, 1000);
       }
     },
 
@@ -208,3 +208,5 @@ const info = () => {
   };
 };
 info().start();
+
+export default slug;

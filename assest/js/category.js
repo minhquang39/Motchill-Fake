@@ -19,8 +19,6 @@ const categoryDetail = () => {
 
   if (isNaN(currentPage)) currentPage = 1;
 
-  console.log(currentPage);
-
   const linkApi = localStorage.getItem("LINK-API");
 
   const categoryTitle = document.querySelector(".category_title");
@@ -39,7 +37,9 @@ const categoryDetail = () => {
         const data = await fetchApi(`${linkApi}?page=${currentPage}`);
 
         setTimeout(() => {
-          categoryTitle.innerText = data?.data?.titlePage || "Phim mới";
+          categoryTitle.innerHTML = `<i class="bi bi-chevron-right"></i>${
+            data?.data?.titlePage || "Phim mới"
+          }`;
           categoryNavbar.innerHTML = `
           <a href="category.html?slug=${data.data.type_list}">
           ${data?.data?.titlePage || "Phim mới"}
@@ -48,7 +48,6 @@ const categoryDetail = () => {
           const movies = data.data.items;
           this.renderMovie(movies, moviesArea);
           totalPages = data.data.params.pagination.totalPages;
-          localStorage.setItem("TOTAL-PAGES", JSON.stringify(totalPages));
           this.renderPagination(totalPages, currentPage, pagination);
         }, 2000);
       } catch (error) {
@@ -157,7 +156,7 @@ const categoryDetail = () => {
       if (loader) {
         setTimeout(() => {
           document.querySelector(".container").removeChild(loader);
-        }, 2000);
+        }, 1000);
       }
     },
 

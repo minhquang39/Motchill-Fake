@@ -71,7 +71,7 @@ const searchMovie = () => {
       if (loader) {
         setTimeout(() => {
           document.querySelector(".container").removeChild(loader);
-        }, 2000);
+        }, 1000);
       }
     },
     start() {

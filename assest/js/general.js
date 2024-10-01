@@ -1,8 +1,8 @@
-export const API_FEATUREFILM = `https://phimapi.com/v1/api/danh-sach/phim-le`;
-export const API_TELEVISIONSERIES = `https://phimapi.com/v1/api/danh-sach/phim-bo`;
-export const API_CARTOON = `https://phimapi.com/v1/api/danh-sach/hoat-hinh`;
-export const API_CATEGORY = `https://phimapi.com/the-loai`;
-export const API_COUNTRY = `https://phimapi.com/quoc-gia`;
+export const API_FEATUREFILM = `https://phimapi.com/v1/api/danh-sach/phim-le?limit=10`;
+export const API_TELEVISIONSERIES = `https://phimapi.com/v1/api/danh-sach/phim-bo?limit=10`;
+export const API_CARTOON = `https://phimapi.com/v1/api/danh-sach/hoat-hinh?limit=10`;
+export const API_CATEGORY = `https://phimapi.com/the-loai?limit=10`;
+export const API_COUNTRY = `https://phimapi.com/quoc-gia?limit=10`;
 export const API_NEWS = `https://phimapi.com/danh-sach/phim-moi-cap-nhat?page=1`;
 export const API_MOVIE = "https://phimapi.com/phim";
 
